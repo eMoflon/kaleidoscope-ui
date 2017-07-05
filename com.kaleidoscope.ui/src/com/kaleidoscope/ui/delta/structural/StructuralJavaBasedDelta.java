@@ -7,8 +7,6 @@ import java.util.stream.Stream;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
-import org.moflon.tgg.algorithm.datastructures.Graph;
-import org.moflon.tgg.algorithm.delta.AttributeDelta;
 
 import com.kaleidoscope.ui.delta.JavaBasedDelta;
 
@@ -100,10 +98,10 @@ public class StructuralJavaBasedDelta extends JavaBasedDelta {
 	             "Attribute Changes (" + attributeChanges.size() + "):" + displayAttrChanges(attributeChanges);*/
 	   }
 
-	   private String displayAttrChanges(Collection<AttributeDelta> changes)
+	   private String displayAttrChanges(Collection<AttributeJavaBasedDelta> changes)
 	   {
 	      return changes.stream().map(chg -> chg.getAffectedAttribute().getEContainingClass().getName() + "." + chg.getAffectedAttribute().getName() + 
-	                  ": " + "[" + chg.getOldValue() + "]" + " -> " + "[" + chg.getNewValue() + "]").reduce("", Graph.combineElementReps("", ""));
+	                  ": " + "[ OLD VALUE ]" + " -> " + "[" + chg.getNewValue() + "]").collect(Collectors.joining(", "));
 	   }
 
 	   public boolean isChangeDetected() {

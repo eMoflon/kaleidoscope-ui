@@ -19,7 +19,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil.Copier;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl;
 import org.eclipse.ui.IEditorInput;
-import org.moflon.core.utilities.LogUtils;
 
 import com.kaleidoscope.ui.delta.JavaBasedDelta;
 import com.kaleidoscope.ui.delta.JavaBasedEdge;
@@ -109,7 +108,7 @@ public class DeltaEditor extends EcoreEditor {
 			saveOptions.put(XMLResource.OPTION_URI_HANDLER, new AbsolutePluginUriAllElseRelativeHandler());
 			deltaResource.save(saveOptions);
 		} catch (IOException e) {
-			LogUtils.error(logger, e);
+			e.printStackTrace();
 		}
 	}
 

@@ -8,6 +8,7 @@ import Deltameta.DeltametaFactory;
 
 public class AttributeJavaBasedDelta {
 	   private Object newValue;
+	   private Object oldValue;
 	   private EAttribute affectedAttribute;
 	   private EObject affectedNode;
 	   

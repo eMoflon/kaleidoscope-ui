@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui;
+package com.kaleidoscope.ui.delta.util;
 
 import java.util.List;
 

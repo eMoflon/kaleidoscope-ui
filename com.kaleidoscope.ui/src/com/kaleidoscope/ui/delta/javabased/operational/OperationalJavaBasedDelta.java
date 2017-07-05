@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta.operational;
+package com.kaleidoscope.ui.delta.javabased.operational;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.function.Consumer;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
-import com.kaleidoscope.ui.delta.JavaBasedDelta;
-import com.kaleidoscope.ui.delta.JavaBasedEdge;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedDelta;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedEdge;
 
 import Deltameta.AddEdgeOP;
 import Deltameta.AddNodeOP;

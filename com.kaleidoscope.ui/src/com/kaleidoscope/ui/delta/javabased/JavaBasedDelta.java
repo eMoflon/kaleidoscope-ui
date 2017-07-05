@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta;
+package com.kaleidoscope.ui.delta.javabased;
 
 public abstract class JavaBasedDelta {
 	

@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta.structural;
+package com.kaleidoscope.ui.delta.javabased.structural;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 
-import com.kaleidoscope.ui.delta.JavaBasedDelta;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedDelta;
 
 import Deltameta.Edge;
 

@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.deltavisualisation
+package com.kaleidoscope.ui.delta.visualisation
 
 import Deltameta.AddEdgeOP
 import Deltameta.AddNodeOP
@@ -8,7 +8,7 @@ import Deltameta.DeleteNodeOP
 import Deltameta.Edge
 import Deltameta.Operation
 import Deltameta.OperationalDelta
-import com.kaleidoscope.ui.DeltaUtil
+import com.kaleidoscope.ui.delta.util.DeltaUtil
 import org.eclipse.emf.ecore.EObject
 
 class DeltaPlantUMLGenerator {

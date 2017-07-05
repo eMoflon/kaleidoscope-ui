@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta.operational;
+package com.kaleidoscope.ui.delta.javabased.operational;
 
 public abstract class Operation{
 	

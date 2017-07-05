@@ -1,6 +1,6 @@
-package com.kaleidoscope.ui.delta.operational;
+package com.kaleidoscope.ui.delta.javabased.operational;
 
-import com.kaleidoscope.ui.delta.JavaBasedEdge;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedEdge;
 
 import Deltameta.DeleteEdgeOP;
 import Deltameta.DeltametaFactory;

@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.deltaeditor;
+package com.kaleidoscope.ui.delta.editor;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import com.kaleidoscope.ui.delta.JavaBasedEdge;
-import com.kaleidoscope.ui.delta.operational.OperationalJavaBasedDelta;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedEdge;
+import com.kaleidoscope.ui.delta.javabased.operational.OperationalJavaBasedDelta;
 
 import Deltameta.DeltametaFactory;
 import Deltameta.Edge;

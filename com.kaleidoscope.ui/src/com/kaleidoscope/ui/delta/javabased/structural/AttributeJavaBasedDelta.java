@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta.structural;
+package com.kaleidoscope.ui.delta.javabased.structural;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;

@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.delta.operational;
+package com.kaleidoscope.ui.delta.javabased.operational;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;

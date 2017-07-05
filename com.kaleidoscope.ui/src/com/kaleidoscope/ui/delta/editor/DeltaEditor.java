@@ -1,4 +1,4 @@
-package com.kaleidoscope.ui.deltaeditor;
+package com.kaleidoscope.ui.delta.editor;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,24 +20,16 @@ import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl;
 import org.eclipse.ui.IEditorInput;
 
-import com.kaleidoscope.ui.delta.JavaBasedDelta;
-import com.kaleidoscope.ui.delta.JavaBasedEdge;
-import com.kaleidoscope.ui.delta.operational.AddEdgeOp;
-import com.kaleidoscope.ui.delta.operational.AttributeChangeOp;
-import com.kaleidoscope.ui.delta.operational.DeleteEdgeOp;
-import com.kaleidoscope.ui.delta.operational.DeleteNodeOp;
-import com.kaleidoscope.ui.delta.operational.OperationalJavaBasedDelta;
-import com.kaleidoscope.ui.delta.structural.AttributeJavaBasedDelta;
+import com.kaleidoscope.ui.delta.javabased.JavaBasedEdge;
+import com.kaleidoscope.ui.delta.javabased.operational.AddEdgeOp;
+import com.kaleidoscope.ui.delta.javabased.operational.AttributeChangeOp;
+import com.kaleidoscope.ui.delta.javabased.operational.DeleteEdgeOp;
+import com.kaleidoscope.ui.delta.javabased.operational.DeleteNodeOp;
+import com.kaleidoscope.ui.delta.javabased.operational.OperationalJavaBasedDelta;
 
-import Deltameta.AddEdgeOP;
-import Deltameta.AddNodeOP;
-import Deltameta.AttributeChangeOP;
-import Deltameta.DeleteEdgeOP;
 import Deltameta.DeleteNodeOP;
-import Deltameta.Delta;
 import Deltameta.DeltametaFactory;
 import Deltameta.Edge;
-import Deltameta.Operation;
 import Deltameta.OperationalDelta;
 
 public class DeltaEditor extends EcoreEditor {
@@ -155,8 +147,8 @@ public class DeltaEditor extends EcoreEditor {
 		return edge.getType();
 	}
 
-	private com.kaleidoscope.ui.delta.operational.Operation mapAttrDeltaToCopy(
-			com.kaleidoscope.ui.delta.operational.Operation attributeChange) {
+	private com.kaleidoscope.ui.delta.javabased.operational.Operation mapAttrDeltaToCopy(
+			com.kaleidoscope.ui.delta.javabased.operational.Operation attributeChange) {
 
 		if (attributeChange instanceof AttributeChangeOp) {
 
@@ -172,8 +164,8 @@ public class DeltaEditor extends EcoreEditor {
 		}		
 	}
 
-	private com.kaleidoscope.ui.delta.operational.Operation mapDeleteNodeToCopy(
-			com.kaleidoscope.ui.delta.operational.Operation delNodeOp) {
+	private com.kaleidoscope.ui.delta.javabased.operational.Operation mapDeleteNodeToCopy(
+			com.kaleidoscope.ui.delta.javabased.operational.Operation delNodeOp) {
 		if (delNodeOp instanceof DeleteNodeOp) {
 
 			DeleteNodeOp deleteNodeOp = (DeleteNodeOp) delNodeOp;
@@ -192,7 +184,7 @@ public class DeltaEditor extends EcoreEditor {
 		// return
 		// deletedNodes.stream().map(copier::get).collect(Collectors.toList());
 	}
-	private com.kaleidoscope.ui.delta.operational.Operation mapEdgeToCopy(com.kaleidoscope.ui.delta.operational.Operation op) {
+	private com.kaleidoscope.ui.delta.javabased.operational.Operation mapEdgeToCopy(com.kaleidoscope.ui.delta.javabased.operational.Operation op) {
 		
 		if (op instanceof DeleteEdgeOp) {
 

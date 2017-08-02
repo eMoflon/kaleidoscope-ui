@@ -5,6 +5,7 @@ import org.eclipse.emf.ecore.EObject;
 
 import Deltameta.AddNodeOP;
 import Deltameta.DeltametaFactory;
+import GridLanguage.Block;
 
 
 public class AddNodeOp extends Operation{
@@ -24,13 +25,12 @@ public class AddNodeOp extends Operation{
 	
 	public Deltameta.Operation toOperationalEMF()
    {	      
-	  AddNodeOP addNodeOp = DeltametaFactory.eINSTANCE.createAddNodeOP();      
+	  AddNodeOP addNodeOp = DeltametaFactory.eINSTANCE.createAddNodeOP(); 
 	  addNodeOp.setNode(node);
-      
       return addNodeOp;
    }
 	@Override
-	public void executeOperation() {
+	public void executeOperation(EObject model) {
 		// TODO Auto-generated method stub
 		
 	}

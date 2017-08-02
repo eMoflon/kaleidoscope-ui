@@ -50,7 +50,7 @@ public class AttributeChangeOp extends Operation{
 
 
 	@Override
-	public void executeOperation() {
+	public void executeOperation(EObject model) {
 		affectedNode.eSet(affectedAttribute, newValue);
 		
 	}

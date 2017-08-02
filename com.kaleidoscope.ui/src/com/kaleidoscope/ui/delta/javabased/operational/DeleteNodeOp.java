@@ -32,7 +32,7 @@ public class DeleteNodeOp extends Operation{
       return deleteNodeOp;
    }
 	@Override
-	public void executeOperation() {
+	public void executeOperation(EObject model) {
 		EcoreUtil.delete(node);
 		
 	}

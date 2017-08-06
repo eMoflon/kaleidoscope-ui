@@ -1,11 +1,8 @@
 package com.kaleidoscope.ui.delta.javabased.operational;
 
 import org.eclipse.emf.ecore.EObject;
-
-
 import Deltameta.AddNodeOP;
 import Deltameta.DeltametaFactory;
-import GridLanguage.Block;
 
 
 public class AddNodeOp extends Operation{

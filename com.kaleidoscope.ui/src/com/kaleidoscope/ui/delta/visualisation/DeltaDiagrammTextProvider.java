@@ -11,15 +11,18 @@ import org.eclipse.ui.IEditorPart;
 import com.kaleidoscope.ui.delta.visualisation.DeltaPlantUMLGenerator;
 
 import Deltameta.Operation;
-import net.sourceforge.plantuml.eclipse.utils.AbstractDiagramTextProvider;
+//import net.sourceforge.plantuml.eclipse.utils.AbstractDiagramTextProvider;
+import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
-public class DeltaDiagrammTextProvider extends AbstractDiagramTextProvider {
+
+public class DeltaDiagrammTextProvider implements DiagramTextProvider  {
 	private EcoreEditor currentEditor;
 	
 	@Override
-	protected String getDiagramText(IEditorPart editorPart, IEditorInput editorInput) {
+	public String getDiagramText(IEditorPart editorPart, ISelection selected) {
 
 		EObject selectedElement = getSelectedObject(editorPart);
+		
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
 			
 			DeltaPlantUMLGenerator gen = new DeltaPlantUMLGenerator();
@@ -29,7 +32,14 @@ public class DeltaDiagrammTextProvider extends AbstractDiagramTextProvider {
 		}
 
 		return "";
+
 	}
+
+	@Override
+	public boolean supportsSelection(ISelection selectedElement) {
+		return selectedElement instanceof Operation;
+	}
+	
 	   
 	protected EObject getInput(EObject selectedElement){
 		   return selectedElement;
@@ -72,5 +82,7 @@ public class DeltaDiagrammTextProvider extends AbstractDiagramTextProvider {
 
 	      return false;
 	   }
+
+	
 	  
 }

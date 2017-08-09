@@ -10,10 +10,7 @@ import Deltameta.Operation;
 import Deltameta.OperationalDelta;
 import com.kaleidoscope.ui.delta.util.DeltaUtil;
 import java.util.LinkedList;
-import java.util.List;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtend2.lib.StringConcatenation;
 import org.eclipse.xtext.xbase.lib.CollectionLiterals;
 import org.eclipse.xtext.xbase.lib.Functions.Function1;
@@ -39,7 +36,7 @@ public class DeltaPlantUMLGenerator {
     _builder.append("\t");
     _builder.append("label=\"\";");
     _builder.newLine();
-    _builder.append(body, "");
+    _builder.append(body);
     _builder.newLineIfNotEmpty();
     _builder.append("}");
     _builder.newLine();
@@ -72,12 +69,10 @@ public class DeltaPlantUMLGenerator {
   }
   
   public String handleOperations(final OperationalDelta delta) {
-    EList<Operation> _operations = delta.getOperations();
     final Function1<Operation, String> _function = (Operation o) -> {
       return this.handleOperation(o);
     };
-    List<String> _map = ListExtensions.<Operation, String>map(_operations, _function);
-    return IterableExtensions.join(_map);
+    return IterableExtensions.join(ListExtensions.<Operation, String>map(delta.getOperations(), _function));
   }
   
   private String handleNodeOperations(final Operation op) {
@@ -91,13 +86,11 @@ public class DeltaPlantUMLGenerator {
     final String style = "filled";
     if ((op instanceof AddNodeOP)) {
       color = "GREEN";
-      EObject _node = ((AddNodeOP) op).getNode();
-      node = _node;
+      node = ((AddNodeOP) op).getNode();
     } else {
       if ((op instanceof DeleteNodeOP)) {
         color = "RED";
-        EObject _node_1 = ((DeleteNodeOP) op).getNode();
-        node = _node_1;
+        node = ((DeleteNodeOP) op).getNode();
       } else {
         return "";
       }
@@ -106,23 +99,23 @@ public class DeltaPlantUMLGenerator {
     this.nodesToBeDrawn.remove(node);
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\"");
-    _builder.append(nodeID, "");
+    _builder.append(nodeID);
     _builder.append("\" [fontsize=");
-    _builder.append(fontsize, "");
+    _builder.append(fontsize);
     _builder.append(", fontname=");
-    _builder.append(fontname, "");
+    _builder.append(fontname);
     _builder.append(", penwidth=");
-    _builder.append(penwidth, "");
+    _builder.append(penwidth);
     _builder.append(", shape=");
-    _builder.append(shape, "");
+    _builder.append(shape);
     _builder.append(", color=");
-    _builder.append(color, "");
+    _builder.append(color);
     _builder.append(", fillcolor=");
-    _builder.append(fillcolor, "");
+    _builder.append(fillcolor);
     _builder.append(", label=\"{");
-    _builder.append(nodeID, "");
+    _builder.append(nodeID);
     _builder.append(" | }\",style=");
-    _builder.append(style, "");
+    _builder.append(style);
     _builder.append("];");
     _builder.newLineIfNotEmpty();
     return _builder.toString();
@@ -137,29 +130,28 @@ public class DeltaPlantUMLGenerator {
     String fillcolor = "WHITE";
     final String style = "filled";
     final Object newValue = attrChange.getNewValue();
-    EObject _node = attrChange.getNode();
-    final String nodeID = DeltaUtil.createGoodNameToIdentify(_node);
+    final String nodeID = DeltaUtil.createGoodNameToIdentify(attrChange.getNode());
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\"");
-    _builder.append(nodeID, "");
+    _builder.append(nodeID);
     _builder.append("\" [fontsize=");
-    _builder.append(fontsize, "");
+    _builder.append(fontsize);
     _builder.append(", fontname=");
-    _builder.append(fontname, "");
+    _builder.append(fontname);
     _builder.append(", penwidth=");
-    _builder.append(penwidth, "");
+    _builder.append(penwidth);
     _builder.append(", shape=");
-    _builder.append(shape, "");
+    _builder.append(shape);
     _builder.append(", color=");
-    _builder.append(color, "");
+    _builder.append(color);
     _builder.append(", fillcolor=");
-    _builder.append(fillcolor, "");
+    _builder.append(fillcolor);
     _builder.append(", label=\"{");
-    _builder.append(nodeID, "");
+    _builder.append(nodeID);
     _builder.append(" | value: OLD VALUE ==\\> ");
-    _builder.append(newValue, "");
+    _builder.append(newValue);
     _builder.append("}\",style=");
-    _builder.append(style, "");
+    _builder.append(style);
     _builder.append("];");
     _builder.newLineIfNotEmpty();
     return _builder.toString();
@@ -177,80 +169,77 @@ public class DeltaPlantUMLGenerator {
     final boolean constraint = true;
     if ((op instanceof AddEdgeOP)) {
       color = "GREEN";
-      Edge _edge = ((AddEdgeOP) op).getEdge();
-      edge = _edge;
+      edge = ((AddEdgeOP) op).getEdge();
     } else {
       if ((op instanceof DeleteEdgeOP)) {
         color = "RED";
-        Edge _edge_1 = ((DeleteEdgeOP) op).getEdge();
-        edge = _edge_1;
+        edge = ((DeleteEdgeOP) op).getEdge();
       } else {
         return "";
       }
     }
     final EObject srcEObject = edge.getSrc();
     final EObject trgEObject = edge.getTrg();
-    EReference _type = edge.getType();
-    final String label = _type.getName();
+    final String label = edge.getType().getName();
     final String srcNodeID = DeltaUtil.createGoodNameToIdentify(srcEObject);
     final String trgNodeID = DeltaUtil.createGoodNameToIdentify(trgEObject);
     this.nodesToBeDrawn.add(srcEObject);
     this.nodesToBeDrawn.add(trgEObject);
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("\"");
-    _builder.append(srcNodeID, "");
+    _builder.append(srcNodeID);
     _builder.append("\" [fontsize=");
-    _builder.append(fontsize, "");
+    _builder.append(fontsize);
     _builder.append(", fontname=");
-    _builder.append(fontname, "");
+    _builder.append(fontname);
     _builder.append(", penwidth=");
-    _builder.append(penwidth, "");
+    _builder.append(penwidth);
     _builder.append(", shape=");
-    _builder.append(shape, "");
+    _builder.append(shape);
     _builder.append(", color=BLACK, fillcolor=");
-    _builder.append(fillcolor, "");
+    _builder.append(fillcolor);
     _builder.append(", label=\"{");
-    _builder.append(srcNodeID, "");
+    _builder.append(srcNodeID);
     _builder.append(" | }\",style=");
-    _builder.append(style, "");
+    _builder.append(style);
     _builder.append("];");
     _builder.newLineIfNotEmpty();
     _builder.append("\"");
-    _builder.append(trgNodeID, "");
+    _builder.append(trgNodeID);
     _builder.append("\" [fontsize=");
-    _builder.append(fontsize, "");
+    _builder.append(fontsize);
     _builder.append(", fontname=");
-    _builder.append(fontname, "");
+    _builder.append(fontname);
     _builder.append(", penwidth=");
-    _builder.append(penwidth, "");
+    _builder.append(penwidth);
     _builder.append(", shape=");
-    _builder.append(shape, "");
+    _builder.append(shape);
     _builder.append(", color=");
-    _builder.append(color, "");
+    _builder.append(color);
     _builder.append(", fillcolor=");
-    _builder.append(fillcolor, "");
+    _builder.append(fillcolor);
     _builder.append(", label=\"{");
-    _builder.append(trgNodeID, "");
+    _builder.append(trgNodeID);
     _builder.append(" | }\",style=");
-    _builder.append(style, "");
+    _builder.append(style);
     _builder.append("];");
     _builder.newLineIfNotEmpty();
     _builder.append("\"");
-    _builder.append(srcNodeID, "");
+    _builder.append(srcNodeID);
     _builder.append("\" -> \"");
-    _builder.append(trgNodeID, "");
+    _builder.append(trgNodeID);
     _builder.append("\" [fontname=");
-    _builder.append(fontname, "");
+    _builder.append(fontname);
     _builder.append(", penwidth=");
-    _builder.append(penwidth, "");
+    _builder.append(penwidth);
     _builder.append(", color=");
-    _builder.append(color, "");
+    _builder.append(color);
     _builder.append(", label=\"");
-    _builder.append(label, "");
+    _builder.append(label);
     _builder.append("\", fontsize=");
-    _builder.append(fontsize, "");
+    _builder.append(fontsize);
     _builder.append(", constraint=");
-    _builder.append(constraint, "");
+    _builder.append(constraint);
     _builder.append("];");
     _builder.newLineIfNotEmpty();
     return _builder.toString();

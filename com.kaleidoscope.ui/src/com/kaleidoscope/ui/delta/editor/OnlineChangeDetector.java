@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import com.kaleidoscope.ui.delta.javabased.JavaBasedEdge;
-import com.kaleidoscope.ui.delta.javabased.operational.OperationalJavaBasedDelta;
+import com.kaleidoscope.delta.javabased.JavaBasedEdge;
+import com.kaleidoscope.delta.javabased.operational.OperationalJavaBasedDelta;
 
 /**
  * Maps EMF notifications to delta structure for the synchronization algorithm.

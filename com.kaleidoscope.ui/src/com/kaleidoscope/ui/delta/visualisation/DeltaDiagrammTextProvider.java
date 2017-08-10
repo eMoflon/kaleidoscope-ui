@@ -5,12 +5,9 @@ import org.eclipse.emf.ecore.presentation.EcoreEditor;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
-import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 
-import com.kaleidoscope.ui.delta.visualisation.DeltaPlantUMLGenerator;
-
-import Deltameta.Operation;
+import KaleidoscopeDelta.Operation;
 //import net.sourceforge.plantuml.eclipse.utils.AbstractDiagramTextProvider;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 

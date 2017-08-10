@@ -13,8 +13,8 @@ import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 
-import com.kaleidoscope.delta.javabased.JavaBasedEdge;
-import com.kaleidoscope.delta.javabased.operational.OperationalJavaBasedDelta;
+import com.kaleidoscope.core.delta.javabased.JavaBasedEdge;
+import com.kaleidoscope.core.delta.javabased.operational.OperationalDelta;
 
 /**
  * Maps EMF notifications to delta structure for the synchronization algorithm.
@@ -25,7 +25,7 @@ import com.kaleidoscope.delta.javabased.operational.OperationalJavaBasedDelta;
 public class OnlineChangeDetector implements Adapter
 {
 	
-   OperationalJavaBasedDelta delta = null;
+   OperationalDelta delta = null;
    //OperationalDelta delta = null;
 
    Collection<EObject> allKnownElements = null;
@@ -35,7 +35,7 @@ public class OnlineChangeDetector implements Adapter
     * @param delta the 'storage' for change events
     * @param root the object (hierarchy) to be observed
     */
-   public OnlineChangeDetector(OperationalJavaBasedDelta delta, EObject root)
+   public OnlineChangeDetector(OperationalDelta delta, EObject root)
    {
       this.delta = delta;
       this.allKnownElements = new HashSet<>();

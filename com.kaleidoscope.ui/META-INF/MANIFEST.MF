@@ -8,12 +8,12 @@ Require-Bundle: org.eclipse.emf.edit.ui;bundle-version="2.12.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.12.0",
  org.eclipse.emf.codegen.ecore;bundle-version="2.12.0",
  org.eclipse.emf.ecore.editor,
- com.kaleidoscope.core.delta.metamodel,
+ com.kaleidoscope.core.delta,
  net.sourceforge.plantuml.eclipse,
  org.eclipse.xtext;bundle-version="2.10.0",
  org.eclipse.xtext.ui;bundle-version="2.10.0",
  org.eclipse.xtend;bundle-version="2.2.0",
  org.eclipse.xtext.xbase.lib;bundle-version="2.10.0",
  org.apache.log4j,
- com.kaleidoscope.core;bundle-version="1.0.0"
+ com.kaleidoscope.core.framework;bundle-version="1.0.0"
 Provide-Package: com.kaleidoscope.ui.delta

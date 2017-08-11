@@ -8,7 +8,6 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 
 import KaleidoscopeDelta.Operation;
-//import net.sourceforge.plantuml.eclipse.utils.AbstractDiagramTextProvider;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
 
@@ -16,21 +15,26 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	private EcoreEditor currentEditor;
 	
 	@Override
-	public String getDiagramText(IEditorPart editorPart) {
+	public String getDiagramText(IEditorPart editorPart, ISelection selected) {
+
 		EObject selectedElement = getSelectedObject(editorPart);
 		
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
 			
 			DeltaPlantUMLGenerator gen = new DeltaPlantUMLGenerator();
 			// Extract input object
-			return gen.wrapInTags(
-					gen.handleOperation((Operation)selectedElement));
+			return gen.wrapInTags(gen.handleOperation((Operation)selectedElement));
 		}
 
 		return "";
-
 	}
-   
+
+	@Override
+	public boolean supportsSelection(ISelection selectedElement) {
+		return selectedElement instanceof Operation;
+	}
+	
+	   
 	protected EObject getInput(EObject selectedElement){
 		   return selectedElement;
 	}

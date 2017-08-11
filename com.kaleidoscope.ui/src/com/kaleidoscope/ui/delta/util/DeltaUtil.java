@@ -7,7 +7,7 @@ import org.eclipse.emf.ecore.EObject;
 
 public class DeltaUtil {
 
-	public static String createGoodNameToIdentify(EObject eObject) {
+	public static String idFor(EObject eObject) {
 		return (getIdentifier(eObject) + "(" + eObject.hashCode() + ")").replace("\"", "'");
 	}
 

@@ -26,8 +26,6 @@ public class OnlineChangeDetector implements Adapter
 {
 	
    OperationalDelta delta = null;
-   //OperationalDelta delta = null;
-
    Collection<EObject> allKnownElements = null;
 
    /**

@@ -7,7 +7,7 @@
       <editor
             class="com.kaleidoscope.ui.delta.editor.DeltaEditor"
             contributorClass="org.eclipse.emf.ecore.presentation.EcoreActionBarContributor"
-            default="true"
+            default="false"
             extensions="xmi"
             icon="icons/deltaSmall-refit.png"
             id="com.kaleidoscope.ui.deltaeditor.DeltaEditor"
@@ -17,7 +17,6 @@
  <extension
        point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
     <diagramTextProvider
-          fileExtensions="xmi"
           providerClass="com.kaleidoscope.ui.delta.visualisation.DeltaDiagramTextProvider">
     </diagramTextProvider>
  </extension>

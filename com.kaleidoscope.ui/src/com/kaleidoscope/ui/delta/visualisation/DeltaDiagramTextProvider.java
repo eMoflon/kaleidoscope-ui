@@ -20,7 +20,6 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 		EObject selectedElement = getSelectedObject(editorPart);
 		
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
-			
 			DeltaPlantUMLGenerator gen = new DeltaPlantUMLGenerator();
 			// Extract input object
 			return gen.wrapInTags(gen.handleOperation((Operation)selectedElement));

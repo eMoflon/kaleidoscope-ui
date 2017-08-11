@@ -12,12 +12,11 @@ import KaleidoscopeDelta.Operation;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
 
-public class DeltaDiagrammTextProvider implements DiagramTextProvider  {
+public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	private EcoreEditor currentEditor;
 	
 	@Override
-	public String getDiagramText(IEditorPart editorPart, ISelection selected) {
-
+	public String getDiagramText(IEditorPart editorPart) {
 		EObject selectedElement = getSelectedObject(editorPart);
 		
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
@@ -31,13 +30,7 @@ public class DeltaDiagrammTextProvider implements DiagramTextProvider  {
 		return "";
 
 	}
-
-	@Override
-	public boolean supportsSelection(ISelection selectedElement) {
-		return selectedElement instanceof Operation;
-	}
-	
-	   
+   
 	protected EObject getInput(EObject selectedElement){
 		   return selectedElement;
 	}
@@ -78,8 +71,5 @@ public class DeltaDiagrammTextProvider implements DiagramTextProvider  {
 	      }
 
 	      return false;
-	   }
-
-	
-	  
+	   }  
 }

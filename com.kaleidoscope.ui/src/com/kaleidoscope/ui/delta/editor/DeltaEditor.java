@@ -1,13 +1,8 @@
 package com.kaleidoscope.ui.delta.editor;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
 
-import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.emf.common.util.URI;
@@ -27,13 +22,9 @@ import com.kaleidoscope.core.delta.javabased.operational.DeleteEdgeOp;
 import com.kaleidoscope.core.delta.javabased.operational.DeleteNodeOp;
 import com.kaleidoscope.core.delta.javabased.operational.OperationalDelta;
 
-import KaleidoscopeDelta.DeleteNodeOP;
-import KaleidoscopeDelta.Edge;
 import KaleidoscopeDelta.KaleidoscopeDeltaFactory;
 
 public class DeltaEditor extends EcoreEditor {
-	private static final Logger logger = Logger.getLogger(DeltaEditor.class);
-
 	private OperationalDelta delta;
 
 	// The user is going to perform changes on this model
@@ -117,35 +108,6 @@ public class DeltaEditor extends EcoreEditor {
 		return operationalDelta;
 	}
 
-	private Collection<Edge> removeOpposites(Collection<Edge> allEdges) {
-		ArrayList<Edge> edges = new ArrayList<>(allEdges);
-		ArrayList<Edge> result = new ArrayList<>();
-
-		for (int i = 0; i < edges.size(); i++) {
-			boolean noOpposite = true;
-			for (int j = i + 1; j < edges.size(); j++) {
-				if (isOppositeOf(edges.get(i), edges.get(j))) {
-					noOpposite = false;
-					break;
-				}
-			}
-
-			if (noOpposite)
-				result.add(edges.get(i));
-		}
-
-		return result;
-	}
-
-	private boolean isOppositeOf(Edge edge1, Edge edge2) {
-		return edge1.getSrc().equals(edge2.getTrg()) && edge1.getTrg().equals(edge2.getSrc())
-				&& toReference(edge2).equals(toReference(edge1).getEOpposite());
-	}
-
-	private EReference toReference(Edge edge) {
-		return edge.getType();
-	}
-
 	private com.kaleidoscope.core.delta.javabased.operational.Operation mapAttrDeltaToCopy(
 			com.kaleidoscope.core.delta.javabased.operational.Operation attributeChange) {
 
@@ -176,13 +138,6 @@ public class DeltaEditor extends EcoreEditor {
 
 	}
 
-	private List<DeleteNodeOP> mapNodesToCopy(List<DeleteNodeOP> deleteNodesOPs) {
-		// deleteNodesOPs.stream().map(o -> copier.get(o.getNode()));
-		deleteNodesOPs.stream().forEach(o -> o.setNode(copier.get(o.getNode())));
-		return deleteNodesOPs;
-		// return
-		// deletedNodes.stream().map(copier::get).collect(Collectors.toList());
-	}
 	private com.kaleidoscope.core.delta.javabased.operational.Operation mapEdgeToCopy(com.kaleidoscope.core.delta.javabased.operational.Operation op) {
 		
 		if (op instanceof DeleteEdgeOp) {
@@ -207,15 +162,6 @@ public class DeltaEditor extends EcoreEditor {
 		}else {
 			return op;
 		}
-	}
-	private Collection<Edge> mapEdgesToCopy(Collection<Edge> edges) {
-		return edges.stream().map(ae -> {
-			Edge e = KaleidoscopeDeltaFactory.eINSTANCE.createEdge();
-			e.setType(ae.getType());
-			e.setSrc(copier.containsKey(ae.getSrc()) ? copier.get(ae.getSrc()) : ae.getSrc());
-			e.setTrg(copier.containsKey(ae.getTrg()) ? copier.get(ae.getTrg()) : ae.getTrg());
-			return e;
-		}).collect(Collectors.toList());
 	}
 }
 

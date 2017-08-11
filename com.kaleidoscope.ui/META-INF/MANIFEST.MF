@@ -1,5 +1,6 @@
-Bundle-SymbolicName: com.kaleidoscope.ui;singleton=true
-Bundle-Version: 1
+Bundle-SymbolicName: com.kaleidoscope.ui;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Version: 1.0.0.qualifier
 Bundle-Name: Kaledoscope UI
 Bundle-Vendor: UNI PB
 Eclipse-AutoStart: true
@@ -7,7 +8,7 @@ Require-Bundle: org.eclipse.emf.edit.ui;bundle-version="2.12.0",
  org.eclipse.core.runtime;bundle-version="3.12.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.12.0",
  org.eclipse.emf.codegen.ecore;bundle-version="2.12.0",
- org.eclipse.emf.ecore.editor,
+ org.eclipse.emf.ecore.editor, 
  com.kaleidoscope.core.delta,
  net.sourceforge.plantuml.eclipse,
  org.eclipse.xtext;bundle-version="2.10.0",
@@ -16,4 +17,5 @@ Require-Bundle: org.eclipse.emf.edit.ui;bundle-version="2.12.0",
  org.eclipse.xtext.xbase.lib;bundle-version="2.10.0",
  org.apache.log4j,
  com.kaleidoscope.core.framework;bundle-version="1.0.0"
-Provide-Package: com.kaleidoscope.ui.delta
+Bundle-ManifestVersion: 2
+Bundle-ActivationPolicy: lazy

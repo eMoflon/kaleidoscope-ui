@@ -18,7 +18,7 @@
        point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
     <diagramTextProvider
           fileExtensions="xmi"
-          providerClass="com.kaleidoscope.ui.delta.visualisation.DeltaDiagrammTextProvider">
+          providerClass="com.kaleidoscope.ui.delta.visualisation.DeltaDiagramTextProvider">
     </diagramTextProvider>
  </extension>
    

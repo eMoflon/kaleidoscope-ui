@@ -17,6 +17,7 @@
  <extension
        point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
     <diagramTextProvider
+          priority="1"
           providerClass="com.kaleidoscope.ui.delta.visualisation.DeltaDiagramTextProvider">
     </diagramTextProvider>
  </extension>

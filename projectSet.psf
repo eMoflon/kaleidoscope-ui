@@ -7,6 +7,7 @@
 <project reference="1.0,https://github.com/eMoflon/kaleidoscope-core.git,master,com.kaleidoscope.core.delta"/>
 <project reference="1.0,https://github.com/eMoflon/kaleidoscope-core.git,master,com.kaleidoscope.core.framework"/>
 <project reference="1.0,https://github.com/eMoflon/kaleidoscope-ui.git,master,com.kaleidoscope.ui"/>
+<project reference="1.0,https://github.com/eMoflon/kaleidoscope-ui.git,master,com.kaleidoscope.util"/>
 </provider>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1506346580412_5" label="kaleidoscope::aux" name="kaleidoscope::aux">
 <item elementID="=com.kaleidoscope.core.aux.simplejava" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
@@ -19,5 +20,6 @@
 </workingSets>
 <workingSets editPageId="org.eclipse.jdt.ui.JavaWorkingSetPage" id="1506347027737_6" label="kaleidoscope::ui" name="kaleidoscope::ui">
 <item elementID="=com.kaleidoscope.ui" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
+<item elementID="=com.kaleidoscope.util" factoryID="org.eclipse.jdt.ui.PersistableJavaElementFactory"/>
 </workingSets>
 </psf>

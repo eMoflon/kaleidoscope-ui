@@ -16,8 +16,7 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	
 	@Override
 	public String getDiagramText(IEditorPart editorPart, ISelection selected) {
-
-		EObject selectedElement = getSelectedObject(editorPart);
+		EObject selectedElement = getSelectedObject(selected);
 		
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
 			DeltaPlantUMLGenerator gen = new DeltaPlantUMLGenerator();
@@ -30,7 +29,7 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 
 	@Override
 	public boolean supportsSelection(ISelection selectedElement) {
-		return selectedElement instanceof Operation;
+		return getSelectedObject(selectedElement) instanceof Operation;
 	}
 	
 	   
@@ -43,23 +42,21 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	}
 
 
-	 private EObject getSelectedObject(IEditorPart editorPart){
-		   ISelection selection = editorPart.getSite().getSelectionProvider().getSelection();
-
-			if (selection != null && !selection.isEmpty() && selection instanceof TreeSelection) {
-				StructuredSelection structuredSelection = (StructuredSelection) selection;
-				if (structuredSelection.getFirstElement() instanceof EObject) {
-					return (EObject) structuredSelection.getFirstElement();
-				}
+	private EObject getSelectedObject(ISelection selection) {
+		if (selection != null && !selection.isEmpty() && selection instanceof TreeSelection) {
+			StructuredSelection structuredSelection = (StructuredSelection) selection;
+			if (structuredSelection.getFirstElement() instanceof EObject) {
+				return (EObject) structuredSelection.getFirstElement();
 			}
-			
-			return null;
-	   }
+		}
+
+		return null;
+	}
 	 
 	  @Override
 	   public boolean supportsEditor(IEditorPart editorPart)
 	   {
-		  EObject selectedElement = getSelectedObject(editorPart); 
+		  EObject selectedElement = getSelectedObject(editorPart.getSite().getSelectionProvider().getSelection()); 
 		   
 		  if(selectedElement == null || !isElementValidInput(selectedElement))
 			 return false;

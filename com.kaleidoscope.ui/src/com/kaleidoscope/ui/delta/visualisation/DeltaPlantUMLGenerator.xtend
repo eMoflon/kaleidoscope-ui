@@ -3,23 +3,32 @@ package com.kaleidoscope.ui.delta.visualisation
 import KaleidoscopeDelta.AddEdgeOP
 import KaleidoscopeDelta.AddNodeOP
 import KaleidoscopeDelta.AttributeChangeOP
-import KaleidoscopeDelta.DeleteNodeOP
-import com.kaleidoscope.ui.delta.util.DeltaUtil
-import org.eclipse.emf.ecore.EObject
 import KaleidoscopeDelta.DeleteEdgeOP
+import KaleidoscopeDelta.DeleteNodeOP
 import KaleidoscopeDelta.Edge
+import KaleidoscopeDelta.StructuralDelta
+import com.kaleidoscope.ui.delta.util.DeltaUtil
+import java.util.Collection
+import org.eclipse.emf.ecore.EObject
 
 class DeltaPlantUMLGenerator {
 	
 	def String wrapInTags(String body) {
 		'''
 		@startuml
-		digraph root {
-			fontname=Monospace
-			fontsize=9
-			label="";
+			hide empty members
+			hide circle
+			hide stereotype
+			
+			skinparam shadowing false
+			
+			skinparam class {
+				BackgroundColor White
+				BorderColor<<GREEN>> SpringGreen
+				BorderColor<<GREY>> Gray
+				BorderColor<<RED>> Red
+			}			
 		«body»
-		}
 		@enduml
 		'''
 	}
@@ -38,32 +47,52 @@ class DeltaPlantUMLGenerator {
 	
 	def String renderNode(String colour, EObject node){
 		'''
-		"«DeltaUtil.idFor(node)»" [«defaultsForRecord», color=«colour», label="{«DeltaUtil.idFor(node)» | }"];
+		class "«DeltaUtil.idFor(node)»" <<«colour»>>
 		'''
 	}
 	
-	def defaultsForRecord(){
-		'''fontsize=8, fontname="Monospace", penwidth=1, shape="record", style="filled", fillcolor="WHITE"'''
-	}
-	
 	def String handleAttributeChange(AttributeChangeOP op) {
-		'''"«DeltaUtil.idFor(op.node)»" [«defaultsForRecord», color="BLACK", label="{«DeltaUtil.idFor(op.node)» | value: OLD VALUE ==\> «op.newValue»}"];
+		'''class "«DeltaUtil.idFor(op.node)»" : value: OLD VALUE ==\> "«op.newValue»";
 		'''
 	}
 	
 	def dispatch handleOperation(AddEdgeOP op){
-		defaultsForEdge("GREEN", op.edge)
+		renderNode("GREY", op.edge.src)
+		renderNode("GREY", op.edge.trg)
+		renderEdge("springgreen", op.edge)
 	}
 	
 	def dispatch handleOperation(DeleteEdgeOP op){
-		defaultsForEdge("RED", op.edge)
+		renderNode("GREY", op.edge.src)
+		renderNode("GREY", op.edge.trg)
+		renderEdge("red", op.edge)
 	}
 	
-	def String defaultsForEdge(String colour, Edge edge){
+	def String renderEdge(String colour, Edge edge){
 		'''
-		«renderNode("GREY", edge.src)»
-		«renderNode("GREY", edge.trg)»
-		"«DeltaUtil.idFor(edge.src)»" -> "«DeltaUtil.idFor(edge.trg)»" [fontname="Monospace", penwidth=1, color="«colour»", label="«edge.type.name»", fontsize=8, constraint=true];
+		"«DeltaUtil.idFor(edge.src)»" --[#«colour»]> "«DeltaUtil.idFor(edge.trg)»" : "«edge.type.name»"
 		'''
 	}
+	
+	def String handleSDelta(StructuralDelta delta){
+		'''
+		«FOR added : delta.addedNodes» «renderNode("GREEN", added)» «ENDFOR»
+		«FOR deleted : delta.deletedNodes» «renderNode("RED", deleted)» «ENDFOR»
+		«FOR attributeChange : delta.changedAttributes» «handleAttributeChange(attributeChange)» «ENDFOR»
+		«renderEdgeAndContext(delta, "red", delta.deletedEdges)»
+		«renderEdgeAndContext(delta, "springgreen", delta.addedEdges)»
+		'''
+	}
+	
+	def String renderEdgeAndContext(StructuralDelta delta, String colour, Collection<Edge> edges)
+		'''«FOR edge : edges»
+			«IF(!delta.addedNodes.contains(edge.src) && !delta.deletedNodes.contains(edge.src))»
+				«renderNode("GREY", edge.src)»
+			«ENDIF»
+			«IF(!delta.addedNodes.contains(edge.trg) && !delta.deletedNodes.contains(edge.trg))»
+				«renderNode("GREY", edge.trg)»
+			«ENDIF»
+			«renderEdge(colour, edge)»
+		«ENDFOR»'''
+	
 }

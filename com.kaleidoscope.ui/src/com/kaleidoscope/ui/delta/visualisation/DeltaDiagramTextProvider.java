@@ -8,6 +8,7 @@ import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 
 import KaleidoscopeDelta.Operation;
+import KaleidoscopeDelta.StructuralDelta;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
 
@@ -21,15 +22,18 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 		if (selectedElement != null && isElementValidInput(selectedElement)) {
 			DeltaPlantUMLGenerator gen = new DeltaPlantUMLGenerator();
 			// Extract input object
-			return gen.wrapInTags(gen.handleOperation((Operation)selectedElement));
+			if(selectedElement instanceof Operation)
+				return gen.wrapInTags(gen.handleOperation((Operation)selectedElement));
+			else if(selectedElement instanceof StructuralDelta)
+				return gen.wrapInTags(gen.handleSDelta((StructuralDelta)selectedElement));
 		}
 
 		return "";
 	}
 
 	@Override
-	public boolean supportsSelection(ISelection selectedElement) {
-		return getSelectedObject(selectedElement) instanceof Operation;
+	public boolean supportsSelection(ISelection selection) {
+		return isElementValidInput(getSelectedObject(selection));
 	}
 	
 	   
@@ -38,7 +42,8 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	}
 	
 	public boolean isElementValidInput(Object selectedElement) {
-		return selectedElement instanceof Operation;
+		return  selectedElement instanceof Operation ||
+			    selectedElement instanceof StructuralDelta;
 	}
 
 
@@ -53,23 +58,21 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 		return null;
 	}
 	 
-	  @Override
-	   public boolean supportsEditor(IEditorPart editorPart)
-	   {
-		  EObject selectedElement = getSelectedObject(editorPart.getSite().getSelectionProvider().getSelection()); 
-		   
-		  if(selectedElement == null || !isElementValidInput(selectedElement))
-			 return false;
-		  
-		  if (editorPart.equals(currentEditor))
-	         return true;
+	@Override
+	public boolean supportsEditor(IEditorPart editorPart) {
+		EObject selectedElement = getSelectedObject(editorPart.getSite().getSelectionProvider().getSelection());
 
-	      if (editorPart instanceof EcoreEditor)
-	      {
-	         currentEditor = (EcoreEditor) editorPart;	         
-	         return true;
-	      }
+		if (selectedElement == null || !isElementValidInput(selectedElement))
+			return false;
 
-	      return false;
-	   }  
+		if (editorPart.equals(currentEditor))
+			return true;
+
+		if (editorPart instanceof EcoreEditor) {
+			currentEditor = (EcoreEditor) editorPart;
+			return true;
+		}
+
+		return false;
+	}
 }

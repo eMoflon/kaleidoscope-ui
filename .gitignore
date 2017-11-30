@@ -4,3 +4,5 @@ com.kaleidoscope.ui/bin/com/kaleidoscope/ui/delta/visualisation/.DeltaPlantUMLGe
 *.xtendbin
 
 *.class
+
+*.class

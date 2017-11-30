@@ -2,12 +2,14 @@ package com.kaleidoscope.ui.delta.visualisation;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.presentation.EcoreEditor;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 
 import KaleidoscopeDelta.Operation;
+import KaleidoscopeDelta.OperationalDelta;
 import KaleidoscopeDelta.StructuralDelta;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
@@ -26,6 +28,12 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 				return gen.wrapInTags(gen.handleOperation((Operation)selectedElement));
 			else if(selectedElement instanceof StructuralDelta)
 				return gen.wrapInTags(gen.handleSDelta((StructuralDelta)selectedElement));
+			else if(selectedElement instanceof OperationalDelta) {
+				OperationalDelta odelta = (OperationalDelta)EcoreUtil.copy(selectedElement);
+				com.kaleidoscope.core.delta.javabased.operational.OperationalDelta odeltaJava = com.kaleidoscope.core.delta.javabased.operational.OperationalDelta.fromEMF(odelta);
+				StructuralDelta sdelta = odeltaJava.transformToStructuralDelta().toEMF();
+				return gen.wrapInTags(gen.handleSDelta(sdelta));
+			}
 		}
 
 		return "";
@@ -43,7 +51,8 @@ public class DeltaDiagramTextProvider implements DiagramTextProvider  {
 	
 	public boolean isElementValidInput(Object selectedElement) {
 		return  selectedElement instanceof Operation ||
-			    selectedElement instanceof StructuralDelta;
+			    selectedElement instanceof StructuralDelta ||
+			    selectedElement instanceof OperationalDelta;
 	}
 
 

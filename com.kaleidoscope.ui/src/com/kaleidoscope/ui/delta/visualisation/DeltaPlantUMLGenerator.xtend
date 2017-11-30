@@ -56,16 +56,20 @@ class DeltaPlantUMLGenerator {
 		'''
 	}
 	
-	def dispatch handleOperation(AddEdgeOP op){
-		renderNode("GREY", op.edge.src)
-		renderNode("GREY", op.edge.trg)
-		renderEdge("springgreen", op.edge)
+	def dispatch String handleOperation(AddEdgeOP op){
+		'''
+		«renderNode("GREY", op.edge.src)»
+		«renderNode("GREY", op.edge.trg)»
+		«renderEdge("springgreen", op.edge)»
+		'''
 	}
 	
-	def dispatch handleOperation(DeleteEdgeOP op){
-		renderNode("GREY", op.edge.src)
-		renderNode("GREY", op.edge.trg)
-		renderEdge("red", op.edge)
+	def dispatch String handleOperation(DeleteEdgeOP op){
+		'''
+		«renderNode("GREY", op.edge.src)»
+		«renderNode("GREY", op.edge.trg)»
+		«renderEdge("red", op.edge)»
+		'''
 	}
 	
 	def String renderEdge(String colour, Edge edge){
@@ -76,9 +80,17 @@ class DeltaPlantUMLGenerator {
 	
 	def String handleSDelta(StructuralDelta delta){
 		'''
-		«FOR added : delta.addedNodes» «renderNode("GREEN", added)» «ENDFOR»
-		«FOR deleted : delta.deletedNodes» «renderNode("RED", deleted)» «ENDFOR»
-		«FOR attributeChange : delta.changedAttributes» «handleAttributeChange(attributeChange)» «ENDFOR»
+		«FOR added : delta.addedNodes»
+			«renderNode("GREEN", added)»
+		«ENDFOR»
+		
+		«FOR deleted : delta.deletedNodes»
+			«renderNode("RED", deleted)»
+		«ENDFOR»
+		
+		«FOR attributeChange : delta.changedAttributes»
+			«handleAttributeChange(attributeChange)»
+		«ENDFOR»
 		«renderEdgeAndContext(delta, "red", delta.deletedEdges)»
 		«renderEdgeAndContext(delta, "springgreen", delta.addedEdges)»
 		'''

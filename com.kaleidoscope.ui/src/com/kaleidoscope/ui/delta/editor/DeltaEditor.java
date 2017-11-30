@@ -74,7 +74,6 @@ public class DeltaEditor extends EcoreEditor {
 
 	private void createNewDeltaResource() {
 		KaleidoscopeDelta.OperationalDelta operationalDelta = createOperationalDeltaFromJavaBasedDelta();
-		//operationalDelta.setTargetModel(copiedModel);
 
 		editingDomain.getResourceSet().getResources().remove(contentResource);
 

@@ -1,9 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Util
-Bundle-SymbolicName: com.kaleidoscope.util
+Bundle-SymbolicName: com.kaleidoscope.util;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: KALEIDOSCOPE
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.core.resources;bundle-version="3.11.0",
@@ -21,4 +19,6 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.emf.common
 Export-Package: com.kaleidoscope.util,
  com.kaleidoscope.util.manifest
+Bundle-Name: com.kaleidoscope.util
+Bundle-ActivationPolicy: lazy
 

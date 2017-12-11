@@ -167,6 +167,7 @@ public class DeltaEditor extends EcoreEditor {
 class AbsolutePluginUriAllElseRelativeHandler extends URIHandlerImpl {
 	@Override
 	public URI deresolve(URI uri) {
-		return uri.isPlatformPlugin() ? uri : super.deresolve(uri);
+		// Our delta editor does not do any resolving and just saves URIs as is 
+		return uri;
 	}
 }

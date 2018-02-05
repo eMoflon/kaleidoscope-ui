@@ -8,9 +8,9 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.IEditorPart;
 
-import KaleidoscopeDelta.Operation;
-import KaleidoscopeDelta.OperationalDelta;
-import KaleidoscopeDelta.StructuralDelta;
+import Delta.Operation;
+import Delta.OperationalDelta;
+import Delta.StructuralDelta;
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider;
 
 

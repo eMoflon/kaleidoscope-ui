@@ -22,7 +22,7 @@ import com.kaleidoscope.core.delta.javabased.operational.DeleteEdgeOp;
 import com.kaleidoscope.core.delta.javabased.operational.DeleteNodeOp;
 import com.kaleidoscope.core.delta.javabased.operational.OperationalDelta;
 
-import KaleidoscopeDelta.KaleidoscopeDeltaFactory;
+import Delta.DeltaFactory;
 
 public class DeltaEditor extends EcoreEditor {
 	private OperationalDelta delta;
@@ -73,7 +73,7 @@ public class DeltaEditor extends EcoreEditor {
 	}
 
 	private void createNewDeltaResource() {
-		KaleidoscopeDelta.OperationalDelta operationalDelta = createOperationalDeltaFromJavaBasedDelta();
+		Delta.OperationalDelta operationalDelta = createOperationalDeltaFromJavaBasedDelta();
 
 		editingDomain.getResourceSet().getResources().remove(contentResource);
 
@@ -93,9 +93,9 @@ public class DeltaEditor extends EcoreEditor {
 		}
 	}
 
-	private KaleidoscopeDelta.OperationalDelta createOperationalDeltaFromJavaBasedDelta() {
+	private Delta.OperationalDelta createOperationalDeltaFromJavaBasedDelta() {
 		OnlineChangeDetector.removeDeltaListeners(originalModel);
-		KaleidoscopeDelta.OperationalDelta operationalDelta = KaleidoscopeDeltaFactory.eINSTANCE.createOperationalDelta();
+		Delta.OperationalDelta operationalDelta = DeltaFactory.eINSTANCE.createOperationalDelta();
 
 		delta.getOperations().stream()
 				.map(this::mapEdgeToCopy)

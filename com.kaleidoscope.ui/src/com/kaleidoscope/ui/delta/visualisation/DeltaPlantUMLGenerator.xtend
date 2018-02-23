@@ -1,12 +1,12 @@
 package com.kaleidoscope.ui.delta.visualisation
 
-import KaleidoscopeDelta.AddEdgeOP
-import KaleidoscopeDelta.AddNodeOP
-import KaleidoscopeDelta.AttributeChangeOP
-import KaleidoscopeDelta.DeleteEdgeOP
-import KaleidoscopeDelta.DeleteNodeOP
-import KaleidoscopeDelta.Edge
-import KaleidoscopeDelta.StructuralDelta
+import Delta.AddEdgeOP
+import Delta.AddNodeOP
+import Delta.AttributeChangeOP
+import Delta.DeleteEdgeOP
+import Delta.DeleteNodeOP
+import Delta.Edge
+import Delta.StructuralDelta
 import com.kaleidoscope.ui.delta.util.DeltaUtil
 import java.util.Collection
 import org.eclipse.emf.ecore.EObject

@@ -42,7 +42,7 @@ class DeltaPlantUMLGenerator {
 	}
 	
 	def dispatch handleOperation(AttributeChangeOP op){
-		return handleAttributeChange(op)
+		return handleAttributeChange("GREY", op)
 	}
 	
 	def String renderNode(String colour, EObject node){
@@ -51,8 +51,11 @@ class DeltaPlantUMLGenerator {
 		'''
 	}
 	
-	def String handleAttributeChange(AttributeChangeOP op) {
-		'''class "«DeltaUtil.idFor(op.node)»" : value: OLD VALUE ==\> "«op.newValue»";
+	def String handleAttributeChange(String colour, AttributeChangeOP op) {
+		'''
+		class "«DeltaUtil.idFor(op.node)»" <<«colour»>> { 
+			«op.attr.name»: «op.node.eGet(op.attr)» ==> «op.newValue»
+		}
 		'''
 	}
 	
@@ -89,11 +92,20 @@ class DeltaPlantUMLGenerator {
 		«ENDFOR»
 		
 		«FOR attributeChange : delta.changedAttributes»
-			«handleAttributeChange(attributeChange)»
+			«handleAttributeChange(colourOfNode(attributeChange.node, delta), attributeChange)»
 		«ENDFOR»
 		«renderEdgeAndContext(delta, "red", delta.deletedEdges)»
 		«renderEdgeAndContext(delta, "springgreen", delta.addedEdges)»
 		'''
+	}
+	
+	def colourOfNode(EObject object, StructuralDelta delta) {
+		if(delta.addedNodes.contains(object))
+			return "GREEN"
+		else if(delta.deletedNodes.contains(object))
+			return "RED"
+		else
+			return "GREY" 
 	}
 	
 	def String renderEdgeAndContext(StructuralDelta delta, String colour, Collection<Edge> edges)

@@ -12,6 +12,7 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
+import org.eclipse.emf.ecore.EStructuralFeature;
 
 import com.kaleidoscope.core.delta.javabased.JavaBasedEdge;
 import com.kaleidoscope.core.delta.javabased.operational.OperationalDelta;
@@ -74,14 +75,23 @@ public class OnlineChangeDetector implements Adapter
          ((List<Object>) oldValue).stream().forEach(addedObj -> handleDeletion(notifier, (EObject) addedObj, (EReference) notification.getFeature()));
          break;
       case Notification.MOVE:
-    	  handleMove(notifier, newValue);
+    	  EObject movedNode = (EObject) newValue;
+    	  EObject container = notifier;
+    	  EStructuralFeature containmentFeature = movedNode.eContainmentFeature();
+    	  if(containmentFeature != null) {
+    		  Object children = container.eGet(containmentFeature);
+    		  if(children instanceof EList){
+    			  EList<EObject> listOfChildren = (EList<EObject>) children;
+    			  handleMove(movedNode, listOfChildren.indexOf(movedNode));
+    		  }
+    	  }
       default:
          // Notification not relevant, do nothing
       }
 
    }
-   private void handleMove(EObject notifier, Object newValue){
-	  // delta.moveNodeOp(notifier, newValue);
+   private void handleMove(EObject moved, int index){
+	   delta.moveNodeOp(moved, index);
    }
    private void handleChange(EObject notifier, Object oldValue, Object newValue, Notification notification)
    {
